@@ -1,26 +1,38 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Child from './Child';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [
+        {
+          name: '1'
+        },
+        {
+          name: '2'
+        }
+      ],
+      childSelectedId: null,
+      showOption: false
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.data.map((value, index) => {
+          return (
+            <div key={index}>
+              <Child show={this.state.childSelectedId === index ? this.state.showOption : false}>
+                <p>TEXTO</p>
+                <button onClick={() => { this.setState({childSelectedId: index, showOption: !this.state.showOption}) }}>don't cancel</button>
+              </Child>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
 }
-
-export default App;
